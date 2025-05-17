@@ -30,7 +30,23 @@ public class MainActivity extends AppCompatActivity {
         Fragment profile = new ProfileFragment();
         Fragment shop = new ShopFragment();
 
-        setFragment(home);
+        setFragment(home);BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                setFragment(new HomeFragment());
+                return true;
+            } else if (id == R.id.nav_shop) {
+                setFragment(new ShopFragment());
+                return true;
+            } else if (id == R.id.nav_profile) {
+                setFragment(new ProfileFragment());
+                return true;
+            }
+            return false;
+
+        });
 
     }
 
