@@ -10,37 +10,38 @@
     tools:context=".ProfileFragment">
 
     <!-- Profilbild -->
+
     <ImageView
-        android:id="@+id/profile_img"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:contentDescription="Profile image"
-        android:focusable="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/baseline_person_24" />
+            android:id="@+id/profile_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:contentDescription="Profile image"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_person_24" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="355dp"
-        android:layout_marginTop="100dp"
-        android:elevation="6dp"
-        app:cardCornerRadius="40dp"
-        app:cardElevation="6dp"
-        app:cardUseCompatPadding="true">
+            android:layout_width="300dp"
+            android:layout_height="355dp"
+            android:layout_marginTop="100dp"
+            android:elevation="6dp"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true">
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#E9D1D0"
-                android:orientation="vertical"
-                android:minHeight="355dp"
-                android:padding="18dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#E9D1D0"
+                    android:orientation="vertical"
+                    android:minHeight="355dp"
+                    android:padding="18dp">
 
             </LinearLayout>
         </ScrollView>
