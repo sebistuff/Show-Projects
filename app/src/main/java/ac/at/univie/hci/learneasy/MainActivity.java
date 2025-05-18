@@ -18,7 +18,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements TopicPickerDialog.ITopicPickerListener {
+public class MainActivity extends AppCompatActivity implements TopicPickerDialog.ITopicPickerListener,  GenderPickerDialog.IGenderPickerListener {
     private final String[] topics = {"Physics", "Topic 2", "Topic 3", "Topic 4", "Topic 5"};
     private final ArrayList<String> physicsLections = new ArrayList<>(
             List.of("Mechanics", "Electrodynamics", "Waves", "Quantum " + "Mechanics", "Astrophysics", "Nuclear Physics",
@@ -58,6 +58,14 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
 
         });
 
+        getSharedPreferences("Coins", MODE_PRIVATE).edit().putInt("Coins", 22).apply();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getSharedPreferences(ShopFragment.POSSESSED_ITEMS_SHARED, MODE_PRIVATE).edit().clear().apply();
     }
 
     private void setFragment(Fragment fragment) {
@@ -67,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
     public void displayTopicPicker(View view) {
         TopicPickerDialog topicPicker = new TopicPickerDialog(topics);
         topicPicker.show(getSupportFragmentManager(), "TOPIC_PICKER");
+    }
+
+    public void displayGenderPicker(View view) {
+        GenderPickerDialog genderPicker = new GenderPickerDialog();
+        genderPicker.show(getSupportFragmentManager(), "GENDER_PICKER");
     }
 
     @Override
@@ -81,5 +94,14 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
                 homeFragment.changeLections(templateLections);
                 break;
         }
+    }
+
+    @Override
+    public void onGenderConfirm(int gender) {
+        profileFragment.setGender(gender);
+    }
+
+    public void setGlasses(int item) {
+        profileFragment.setGlasses(item);
     }
 }

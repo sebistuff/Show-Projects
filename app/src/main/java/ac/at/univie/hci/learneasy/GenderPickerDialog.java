@@ -1,35 +1,31 @@
 package ac.at.univie.hci.learneasy;
 
-import android.adservices.topics.Topic;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-public class TopicPickerDialog extends DialogFragment {
+public class GenderPickerDialog extends DialogFragment {
 
-    public interface ITopicPickerListener {
-        public void onTopicConfirm(int topic);
+    public interface IGenderPickerListener {
+        public void onGenderConfirm(int topic);
     }
 
-    private ITopicPickerListener listener;
-    private String[] topics;
+    private IGenderPickerListener listener;
+    private final String[] genders = {"Male", "Female"};
 
-    public TopicPickerDialog(String[] topics) {
-        this.topics = topics;
+    public GenderPickerDialog() {
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Pick a Topic")
-               .setItems(topics, (dialog, which) -> {
-                    listener.onTopicConfirm(which);
+        builder.setTitle("Choose a gender for your Avatar")
+               .setItems(genders, (dialog, which) -> {
+                   listener.onGenderConfirm(which);
                });
         return builder.create();
     }
@@ -38,7 +34,7 @@ public class TopicPickerDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            listener = (ITopicPickerListener) context;
+            listener = (IGenderPickerListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString() + " must implement ITopicPickerListener");
         }

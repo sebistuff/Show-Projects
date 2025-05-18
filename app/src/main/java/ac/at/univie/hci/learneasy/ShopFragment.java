@@ -1,5 +1,8 @@
 package ac.at.univie.hci.learneasy;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,54 +10,94 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass. Use the {@link ShopFragment#newInstance} factory method to create an instance of this fragment.
- */
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Random;
+
 public class ShopFragment extends Fragment {
+    public static final String POSSESSED_ITEMS_SHARED = "PossessedItems";
 
-	// TODO: Rename parameter arguments, choose names that match
-	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-	private static final String ARG_PARAM1 = "param1";
-	private static final String ARG_PARAM2 = "param2";
+    private int coins;
 
-	// TODO: Rename and change types of parameters
-	private String mParam1;
-	private String mParam2;
+    public ShopFragment() {
+    }
 
-	public ShopFragment() {
-		// Required empty public constructor
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	/**
-	 * Use this factory method to create a new instance of this fragment using the provided parameters.
-	 *
-	 * @param param1 Parameter 1.
-	 * @param param2 Parameter 2.
-	 * @return A new instance of fragment ShopFragment.
-	 */
-	// TODO: Rename and change types and number of parameters
-	public static ShopFragment newInstance(String param1, String param2) {
-		ShopFragment fragment = new ShopFragment();
-		Bundle args = new Bundle();
-		args.putString(ARG_PARAM1, param1);
-		args.putString(ARG_PARAM2, param2);
-		fragment.setArguments(args);
-		return fragment;
-	}
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			mParam1 = getArguments().getString(ARG_PARAM1);
-			mParam2 = getArguments().getString(ARG_PARAM2);
-		}
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        LinearLayout itemContainer = view.findViewById(R.id.item_container);
+        for (int i = 0; i < itemContainer.getChildCount(); i++) {
+            FrameLayout item = (FrameLayout) itemContainer.getChildAt(i);
+            int index = i;
+            item.getChildAt(1).setOnClickListener((button_view) -> {
+                itemBought(index + 1);
+            });
+        }
+        view.findViewById(R.id.buy_random_button).setOnClickListener(this::randomItemBought);
+        coins = getContext().getSharedPreferences("Coins", MODE_PRIVATE).getInt("Coins", 0);
+        ((TextView) view.findViewById(R.id.text_coins)).setText("Coins: " + coins);
+        return view;
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_shop, container, false);
-	}
+    private void itemBought(int item_id) {
+        SharedPreferences.Editor edit = getContext().getSharedPreferences(POSSESSED_ITEMS_SHARED, MODE_PRIVATE).edit();
+        switch (item_id) {
+            case 1:
+                if (coins >= 10) {
+                    edit.putBoolean("Glasses 1", true).apply();
+                    coins -= 10;
+                    Snackbar.make(getView(), "You have successfully bought Glasses 1", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(getView(), "You don´t have enough coins to buy this!", Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+            case 2:
+                if (coins >= 7) {
+                    edit.putBoolean("Glasses 2", true).apply();
+                    coins -= 7;
+                    Snackbar.make(getView(), "You have successfully bought Glasses 2", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(getView(), "You don´t have enough coins to buy this!", Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+            case 3:
+                if (coins >= 7) {
+                    edit.putBoolean("Glasses 3", true).apply();
+                    coins -= 7;
+                    Snackbar.make(getView(), "You have successfully bought Glasses 3", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(getView(), "You don´t have enough coins to buy this!", Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                Snackbar.make(getView(), "This item is currently not implemented!", Snackbar.LENGTH_SHORT).show();
+                break;
+        }
+        getContext().getSharedPreferences("Coins", MODE_PRIVATE).edit().putInt("Coins", coins).apply();
+        ((TextView) getView().findViewById(R.id.text_coins)).setText("Coins: " + coins);
+    }
+
+    private void randomItemBought(View view) {
+        if (coins >= 3) {
+            coins -= 3;
+            Random rand = new Random();
+            int random = rand.nextInt(3);
+            if (random == 0) {
+                coins += 10;
+            } else {
+                coins += 7;
+            }
+            itemBought(random + 1);
+        }
+    }
 }

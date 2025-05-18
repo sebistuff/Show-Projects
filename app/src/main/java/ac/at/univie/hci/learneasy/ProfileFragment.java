@@ -1,53 +1,98 @@
 package ac.at.univie.hci.learneasy;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass. Use the {@link ProfileFragment#newInstance} factory method to create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
+    private ImageView profilePicture;
 
-	private static final String ARG_PARAM1 = "param1";
+    private int currentProfilePicture;
+    private boolean firstTime = true;
+    private boolean isFemale;
+    private RecyclerView profileRecyclerView;
 
-	private List<String> mParam1;
+    public ProfileFragment() {
+    }
 
-	public ProfileFragment() {
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-	/**
-	 * Use this factory method to create a new instance of this fragment using the provided parameters.
-	 *
-	 * @param param1 Parameter 1.
-	 * @return A new instance of fragment ProfileFragment.
-	 */
-	public static ProfileFragment newInstance(ArrayList<String> param1) {
-		ProfileFragment fragment = new ProfileFragment();
-		Bundle args = new Bundle();
-		args.putStringArrayList(ARG_PARAM1, param1);
-		fragment.setArguments(args);
-		return fragment;
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (firstTime) {
+            MainActivity main = (MainActivity) inflater.getContext();
+            main.displayGenderPicker(null);
+            firstTime = false;
+        }
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        profilePicture = view.findViewById(R.id.profile_img);
+        profilePicture.setImageResource(currentProfilePicture);
+        profileRecyclerView = view.findViewById(R.id.profile_recycleview);
+        profileRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ProfileAdapter adapter = new ProfileAdapter(getPossessedItemsList());
+        profileRecyclerView.setAdapter(adapter);
+        return view;
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			mParam1 = getArguments().getStringArrayList(ARG_PARAM1);
-		}
-	}
+    public void setGender(int gender) {
+        this.isFemale = (gender == 1);
+        if (gender == 0) {
+            this.currentProfilePicture = R.drawable.man_avatar;
+        } else {
+            this.currentProfilePicture = R.drawable.woman_avatar;
+        }
+        profilePicture.setImageResource(currentProfilePicture);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_profile, container, false);
-	}
+    private List<Integer> getPossessedItemsList() {
+        List<Integer> possessedItems = new ArrayList<>();
+        SharedPreferences possessed = getContext().getSharedPreferences(ShopFragment.POSSESSED_ITEMS_SHARED, MODE_PRIVATE);
+        if (possessed.contains("Glasses 1")) {
+            possessedItems.add(R.drawable.glasses_1);
+        }
+        if (possessed.contains("Glasses 2")) {
+            possessedItems.add(R.drawable.glasses_2);
+        }
+        if (possessed.contains("Glasses 3")) {
+            possessedItems.add(R.drawable.glasses_3);
+        }
+        return possessedItems;
+    }
+
+    public void setGlasses(int item) {
+        if (isFemale) {
+            if (item == R.drawable.glasses_1) {
+                this.currentProfilePicture = R.drawable.woman_glasses_1;
+            } else if (item == R.drawable.glasses_2) {
+                this.currentProfilePicture = R.drawable.woman_glasses_2;
+            } else if (item == R.drawable.glasses_3) {
+                this.currentProfilePicture = R.drawable.woman_glasses_3;
+            }
+        } else {
+            if (item == R.drawable.glasses_1) {
+                this.currentProfilePicture = R.drawable.man_glasses_1;
+            } else if (item == R.drawable.glasses_2) {
+                this.currentProfilePicture = R.drawable.man_glasses_2;
+            } else if (item == R.drawable.glasses_3) {
+                this.currentProfilePicture = R.drawable.man_glasses_3;
+            }
+        }
+        profilePicture.setImageResource(currentProfilePicture);
+    }
 }
