@@ -20,6 +20,7 @@ import java.util.Random;
 
 public class ShopFragment extends Fragment {
     public static final String POSSESSED_ITEMS_SHARED = "PossessedItems";
+    public static final String COINS_SHARED = "Coins";
 
     private int coins;
 
@@ -44,7 +45,7 @@ public class ShopFragment extends Fragment {
             });
         }
         view.findViewById(R.id.buy_random_button).setOnClickListener(this::randomItemBought);
-        coins = getContext().getSharedPreferences("Coins", MODE_PRIVATE).getInt("Coins", 0);
+        coins = getContext().getSharedPreferences(COINS_SHARED, MODE_PRIVATE).getInt(COINS_SHARED, 0);
         ((TextView) view.findViewById(R.id.text_coins)).setText("Coins: " + coins);
         return view;
     }
@@ -83,13 +84,13 @@ public class ShopFragment extends Fragment {
                 Snackbar.make(getView(), "This item is currently not implemented!", Snackbar.LENGTH_SHORT).show();
                 break;
         }
-        getContext().getSharedPreferences("Coins", MODE_PRIVATE).edit().putInt("Coins", coins).apply();
+        getContext().getSharedPreferences(COINS_SHARED, MODE_PRIVATE).edit().putInt(COINS_SHARED, coins).apply();
         ((TextView) getView().findViewById(R.id.text_coins)).setText("Coins: " + coins);
     }
 
     private void randomItemBought(View view) {
-        if (coins >= 3) {
-            coins -= 3;
+        if (coins >= 5) {
+            coins -= 5;
             Random rand = new Random();
             int random = rand.nextInt(3);
             if (random == 0) {
@@ -98,6 +99,8 @@ public class ShopFragment extends Fragment {
                 coins += 7;
             }
             itemBought(random + 1);
+        } else {
+            Snackbar.make(getView(), "You don´t have enough coins to buy this!", Snackbar.LENGTH_SHORT).show();
         }
     }
 }

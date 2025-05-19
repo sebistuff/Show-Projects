@@ -53,7 +53,7 @@
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:elevation="6dp"
             app:cardCornerRadius="40dp"
             app:cardElevation="6dp"
@@ -61,7 +61,7 @@
             android:layout_marginHorizontal="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="297dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:id="@+id/lections_recycleview" />
@@ -69,14 +69,13 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/text_footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pick a Topic!"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:layout_marginTop="30dp"
-        android:textColor="#333333" />
+            android:id="@+id/text_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick a Topic!"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:layout_marginTop="10dp" />
 
 
 

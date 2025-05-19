@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
             return false;
 
         });
-
-        getSharedPreferences("Coins", MODE_PRIVATE).edit().putInt("Coins", 22).apply();
+        int coins = getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, 22);
+        getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).edit().putInt(ShopFragment.COINS_SHARED, coins).apply();
 
     }
 
@@ -98,5 +98,9 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
 
     public void setGlasses(int item) {
         profileFragment.setGlasses(item);
+    }
+
+    public void sellItem(int item) {
+        profileFragment.sellItem(item);
     }
 }

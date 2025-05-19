@@ -95,4 +95,23 @@ public class ProfileFragment extends Fragment {
         }
         profilePicture.setImageResource(currentProfilePicture);
     }
+
+    public void sellItem(int item) {
+        SharedPreferences.Editor edit = getContext().getSharedPreferences(ShopFragment.POSSESSED_ITEMS_SHARED, MODE_PRIVATE).edit();
+        int coins = getContext().getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, Integer.MIN_VALUE);
+        if (item == R.drawable.glasses_1) {
+            edit.remove("Glasses 1");
+            coins += 4;
+        } else if (item == R.drawable.glasses_2) {
+            edit.remove("Glasses 2");
+            coins += 4;
+        } else if (item == R.drawable.glasses_3) {
+            edit.remove("Glasses 3");
+            coins += 4;
+        }
+        edit.apply();
+        getContext().getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).edit().putInt(ShopFragment.COINS_SHARED, coins).apply();
+        ProfileAdapter adapter = new ProfileAdapter(getPossessedItemsList());
+        profileRecyclerView.setAdapter(adapter);
+    }
 }

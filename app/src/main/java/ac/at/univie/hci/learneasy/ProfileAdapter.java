@@ -21,6 +21,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         public ViewHolder(View view) {
             super(view);
             this.image = view.findViewById(R.id.item_image);
+            Button sellButton = view.findViewById(R.id.sell_button);
+            sellButton.setOnClickListener(v -> {
+                MainActivity main = (MainActivity) view.getContext();
+                main.sellItem(viewedItem);
+            });
 
             view.setOnClickListener(v -> {
                 MainActivity main = (MainActivity) v.getContext();
