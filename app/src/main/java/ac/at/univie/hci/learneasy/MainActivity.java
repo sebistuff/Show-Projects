@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
             return insets;
         });
 
-        setFragment(homeFragment);BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        setFragment(homeFragment);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
@@ -60,12 +61,6 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
 
         getSharedPreferences("Coins", MODE_PRIVATE).edit().putInt("Coins", 22).apply();
 
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        getSharedPreferences(ShopFragment.POSSESSED_ITEMS_SHARED, MODE_PRIVATE).edit().clear().apply();
     }
 
     private void setFragment(Fragment fragment) {
