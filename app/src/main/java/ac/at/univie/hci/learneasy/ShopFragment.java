@@ -50,6 +50,10 @@ public class ShopFragment extends Fragment {
         return view;
     }
 
+    /**
+     * an item should be bought if the user has enough coins
+     * @param item_id id of the item
+     */
     private void itemBought(int item_id) {
         SharedPreferences.Editor edit = getContext().getSharedPreferences(POSSESSED_ITEMS_SHARED, MODE_PRIVATE).edit();
         switch (item_id) {
@@ -88,6 +92,9 @@ public class ShopFragment extends Fragment {
         ((TextView) getView().findViewById(R.id.text_coins)).setText("Coins: " + coins);
     }
 
+    /**
+     * buy a random item
+	 */
     private void randomItemBought(View view) {
         if (coins >= 5) {
             coins -= 5;

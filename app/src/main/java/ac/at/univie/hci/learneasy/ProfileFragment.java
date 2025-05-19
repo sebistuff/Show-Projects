@@ -35,14 +35,17 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // display the gender picker if the profile fragment is viewed for the first time
         if (firstTime) {
             MainActivity main = (MainActivity) inflater.getContext();
             main.displayGenderPicker(null);
             firstTime = false;
         }
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        // set the profile picture
         profilePicture = view.findViewById(R.id.profile_img);
         profilePicture.setImageResource(currentProfilePicture);
+        // set the owned items
         profileRecyclerView = view.findViewById(R.id.profile_recycleview);
         profileRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ProfileAdapter adapter = new ProfileAdapter(getPossessedItemsList());
@@ -50,6 +53,10 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    /**
+     * set the gender of the avatar
+     * @param gender 0 = male, 1 = female
+     */
     public void setGender(int gender) {
         this.isFemale = (gender == 1);
         if (gender == 0) {
@@ -60,6 +67,9 @@ public class ProfileFragment extends Fragment {
         profilePicture.setImageResource(currentProfilePicture);
     }
 
+    /**
+     * @return List of resource ids of the items owned
+     */
     private List<Integer> getPossessedItemsList() {
         List<Integer> possessedItems = new ArrayList<>();
         SharedPreferences possessed = getContext().getSharedPreferences(ShopFragment.POSSESSED_ITEMS_SHARED, MODE_PRIVATE);
@@ -75,6 +85,10 @@ public class ProfileFragment extends Fragment {
         return possessedItems;
     }
 
+    /**
+     * set the glasses of the avatar
+     * @param item resource id of the glasses to put on
+     */
     public void setGlasses(int item) {
         if (isFemale) {
             if (item == R.drawable.glasses_1) {
@@ -96,6 +110,10 @@ public class ProfileFragment extends Fragment {
         profilePicture.setImageResource(currentProfilePicture);
     }
 
+    /**
+     * sell an item
+     * @param item resource id of the item to sell
+     */
     public void sellItem(int item) {
         SharedPreferences.Editor edit = getContext().getSharedPreferences(ShopFragment.POSSESSED_ITEMS_SHARED, MODE_PRIVATE).edit();
         int coins = getContext().getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, Integer.MIN_VALUE);

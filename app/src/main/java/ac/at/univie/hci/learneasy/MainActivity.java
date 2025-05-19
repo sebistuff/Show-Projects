@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
             return insets;
         });
 
+        // We want the home fragment to be displayed initially
         setFragment(homeFragment);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnItemSelectedListener(item -> {
@@ -58,25 +59,41 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
             return false;
 
         });
-        int coins = getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, 22);
+
+        // get current coins and set them to 15 when first starting the app
+        int coins = getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, 15);
         getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).edit().putInt(ShopFragment.COINS_SHARED, coins).apply();
 
     }
 
+    /**
+     * sets the fragment visible
+     * @param fragment - Fragment to be displayed
+     */
     private void setFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
+    /**
+     * display the topic picker dialog
+	 */
     public void displayTopicPicker(View view) {
         TopicPickerDialog topicPicker = new TopicPickerDialog(topics);
         topicPicker.show(getSupportFragmentManager(), "TOPIC_PICKER");
     }
 
+    /**
+     * display the gender picker dialog
+	 */
     public void displayGenderPicker(View view) {
         GenderPickerDialog genderPicker = new GenderPickerDialog();
         genderPicker.show(getSupportFragmentManager(), "GENDER_PICKER");
     }
 
+    /**
+     * Select a new topic and adjust lections accordingly
+     * @param topic selected topic
+     */
     @Override
     public void onTopicConfirm(int topic) {
         TextView topic_text = findViewById(R.id.text_topic);
@@ -91,15 +108,27 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
         }
     }
 
+    /**
+     * change the gender of the avatar
+     * @param gender gender to change to (0 = male, 1 = female)
+     */
     @Override
     public void onGenderConfirm(int gender) {
         profileFragment.setGender(gender);
     }
 
+    /**
+     * set the glasses of the avatar
+     * @param item resource id of the glasses
+     */
     public void setGlasses(int item) {
         profileFragment.setGlasses(item);
     }
 
+    /**
+     * sell an item
+     * @param item resource id of the item to sell
+     */
     public void sellItem(int item) {
         profileFragment.sellItem(item);
     }
