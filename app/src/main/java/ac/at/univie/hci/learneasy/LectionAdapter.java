@@ -15,13 +15,20 @@ public class LectionAdapter extends RecyclerView.Adapter<LectionAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final Button lectionButton;
+        private int position;
 
         public ViewHolder(View view) {
             super(view);
             this.lectionButton = view.findViewById(R.id.lection_button);
+
+            lectionButton.setOnClickListener(v -> {
+                MainActivity main = (MainActivity) view.getContext();
+                main.startLection(position);
+            });
         }
 
-        public void setLection(String lection) {
+        public void setLection(String lection, int position) {
+            this.position = position;
             lectionButton.setText(lection);
         }
     }
@@ -47,7 +54,7 @@ public class LectionAdapter extends RecyclerView.Adapter<LectionAdapter.ViewHold
      */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.setLection(lections.get(position));
+        viewHolder.setLection(lections.get(position), position);
     }
 
     @Override

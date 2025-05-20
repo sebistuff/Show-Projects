@@ -93,4 +93,13 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="probability_1">"Die Wahrscheinlichkeit eines Ereignisses wird mit einem Zahlenwert zwischen 0 und 1 ausgedrückt und als P(Ereignis) bezeichnet."
+        "zB 0 = unmöglich, 1 = wird definitiv passieren, 0,5 = gleiche Chance dass etwas passiert oder nicht passiert"
+    </string>
+    <string name="probability_2">"Betrachten wir einen fairen Würfel mit den Zahlen 1 bis 6: Eine 7 zu würfeln ist unmöglich, daher ist P(7) = 0."
+        "Dass eine 3 fällt, ist nur eines von mehreren möglichen Ergebnissen, also gilt ""0 &lt; P(3) &lt; 1."
+        "Da man beim Würfeln stets eine Zahl erhält und niemals etwa „Kopf“, ist das Ereignis „Zahl“ sicher, weshalb P(Zahl) = 1."
+    </string>
+    <string name="probability_video">Was ist Wahrscheinlichkeit?</string>
+    <string name="probability_video_desc">Click on the link below to watch an introductory video on probability!</string>
 </resources>

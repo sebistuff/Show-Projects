@@ -1,5 +1,6 @@
 package ac.at.univie.hci.learneasy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,21 +15,25 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TopicPickerDialog.ITopicPickerListener,  GenderPickerDialog.IGenderPickerListener {
-    private final String[] topics = {"Physics", "Topic 2", "Topic 3", "Topic 4", "Topic 5"};
+    private final String[] topics = {"Physics", "Probability", "Topic 3", "Topic 4", "Topic 5"};
     private final ArrayList<String> physicsLections = new ArrayList<>(
             List.of("Mechanics", "Electrodynamics", "Waves", "Quantum " + "Mechanics", "Astrophysics", "Nuclear Physics",
                     "Thermodynamics"));
+    private final ArrayList<String> probabilityLections = new ArrayList<>(List.of("Introduction", "Lection 2", "Lection 3", "Lection 4",
+                                                                                  "Lection 5", "Lection 6", "Lectin 7", "Lection 8"));
     private final ArrayList<String> templateLections = new ArrayList<>( List.of("Lection 1", "Lection 2", "Lection 3", "Lection 4",
                                                                                 "Lection 5", "Lection 6", "Lection 7", "Lection 8"));
-
     private final HomeFragment homeFragment = HomeFragment.newInstance(physicsLections);
     private final ShopFragment shopFragment = new ShopFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
+
+    private int currentTopic = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +107,14 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
             case 0:
                 homeFragment.changeLections(physicsLections);
                 break;
+            case 1:
+                homeFragment.changeLections(probabilityLections);
+                break;
             default:
                 homeFragment.changeLections(templateLections);
                 break;
         }
+        currentTopic = topic;
     }
 
     /**
@@ -131,5 +140,20 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
      */
     public void sellItem(int item) {
         profileFragment.sellItem(item);
+    }
+
+    public void startLection(int position) {
+        switch(currentTopic) {
+            case 1:
+                if (position == 0) {
+                    Intent intent = new Intent(this, LectionActivity.class);
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(findViewById(R.id.main), "This lection is currently not implemented!", Snackbar.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                Snackbar.make(findViewById(R.id.main), "This topic is currently not implemented!", Snackbar.LENGTH_SHORT).show();
+        }
     }
 }
