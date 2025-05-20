@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class LectionActivity extends AppCompatActivity {
+public class LectionActivity extends AppCompatActivity implements QuizFinishDialog.IQuizFinishListener {
     private final LectionFragmentIntro introFragment = new LectionFragmentIntro();
     private final LectionFragmentExamples examplesFragment = new LectionFragmentExamples();
     private final LectionFragmentQuiz quizFragment = new LectionFragmentQuiz();
@@ -38,13 +38,18 @@ public class LectionActivity extends AppCompatActivity {
     }
 
     public void nextPart(View view) {
-        if (currentProgress++ == 1) {
+        if (currentProgress == 1) {
             setFragment(examplesFragment);
-        } else if (currentProgress++ == 2) {
-            setFragment(quizFragment);
-        } else {
-            // TODO finish lection
         }
+        if (currentProgress == 2) {
+            setFragment(quizFragment);
+        }
+        if (currentProgress == 3){
+            int coins = getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, 0);
+            getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).edit().putInt(ShopFragment.COINS_SHARED, coins+5).apply();
+            getOnBackPressedDispatcher().onBackPressed();
+        }
+        currentProgress++;
     }
 
     public void openProbabilityVideo(View view) {
@@ -56,5 +61,19 @@ public class LectionActivity extends AppCompatActivity {
             Snackbar.make(this.getCurrentFocus(), "No application can open this website. Please install a webbrowser", Snackbar.LENGTH_SHORT).show();
             System.err.println(e.getMessage());
         }
+    }
+
+    public void questionAnswered(boolean answer) {
+        quizFragment.questionAnswered(answer);
+    }
+
+    @Override
+    public void onTryAgain() {
+        quizFragment.onTryAgain();
+    }
+
+    @Override
+    public void onConfirm() {
+        quizFragment.onConfirm();
     }
 }

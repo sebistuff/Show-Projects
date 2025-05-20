@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
     private final ShopFragment shopFragment = new ShopFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
 
-    private int currentTopic = -1;
+    private int currentTopic = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         // We want the home fragment to be displayed initially
         setFragment(homeFragment);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -62,13 +61,17 @@ public class MainActivity extends AppCompatActivity implements TopicPickerDialog
                 return true;
             }
             return false;
-
         });
-
         // get current coins and set them to 15 when first starting the app
         int coins = getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).getInt(ShopFragment.COINS_SHARED, 15);
         getSharedPreferences(ShopFragment.COINS_SHARED, MODE_PRIVATE).edit().putInt(ShopFragment.COINS_SHARED, coins).apply();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        onTopicConfirm(currentTopic);
     }
 
     /**

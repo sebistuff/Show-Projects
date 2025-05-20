@@ -102,4 +102,13 @@
     </string>
     <string name="probability_video">Was ist Wahrscheinlichkeit?</string>
     <string name="probability_video_desc">Click on the link below to watch an introductory video on probability!</string>
+    <string-array name="probability_lection_1_questions">
+        <item>Die Wahrscheinlichkeit, dass ein Ereignis eintritt liegt stehts im Interval [0,1]</item>
+        <item>Die Wahrscheinlichkeit für ein Ereignis wird üblicherweise mit dem Buchstaben P bezeichnet</item>
+        <item>Bei einem fairen Würfel ist P(7)=0.16</item>
+        <item>Ein Ereignis mit P(E)=0.5 hat eine 50% Chance einzutreten</item>
+        <item>Bei einem fairen Würfel ist P(2)=0.16</item>
+        <item>Wenn man eine Kugel aus einem Beutel mit 3 roten und 7 blauen Kugeln zieht ist P(rot)=0.7</item>
+    </string-array>
+
 </resources>
