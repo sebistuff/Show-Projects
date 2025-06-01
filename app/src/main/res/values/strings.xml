@@ -110,5 +110,7 @@
         <item>Bei einem fairen Würfel ist P(2)=0.16</item>
         <item>Wenn man eine Kugel aus einem Beutel mit 3 roten und 7 blauen Kugeln zieht ist P(rot)=0.7</item>
     </string-array>
+    <string name="true_string">True</string>
+    <string name="false_string">False</string>
 
 </resources>

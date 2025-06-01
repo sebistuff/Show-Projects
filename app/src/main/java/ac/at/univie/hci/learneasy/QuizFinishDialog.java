@@ -34,7 +34,7 @@ public class QuizFinishDialog extends DialogFragment {
 				listener.onConfirm();
 			});
 		} else {
-			builder.setTitle("Ooops you answered too many questions incorrectly. Please try again").setNegativeButton("TryAgain", (dialog, which) -> {
+			builder.setTitle("Ooops you answered too many questions incorrectly. Please try again").setNegativeButton("Try Again", (dialog, which) -> {
 						listener.onTryAgain();
 			});
 		}

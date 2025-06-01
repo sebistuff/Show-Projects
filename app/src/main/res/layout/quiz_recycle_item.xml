@@ -19,7 +19,7 @@
             android:breakStrategy="balanced" />
 
     <Button
-            android:text="False"
+            android:text="@string/false_string"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:id="@+id/button_false"
@@ -34,7 +34,7 @@
             android:layout_marginBottom="20dp" />
 
     <Button
-            android:text="True"
+            android:text="@string/true_string"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:id="@+id/button_true"

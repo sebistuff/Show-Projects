@@ -13,5 +13,6 @@
             android:paddingLeft="34dp"
             android:paddingRight="34dp"
             android:paddingTop="20dp"
-            android:paddingBottom="20dp" />
+            android:paddingBottom="20dp"
+            android:backgroundTint="#E2772D" />
 </FrameLayout>
