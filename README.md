@@ -1,6 +1,6 @@
 # 🚀 Show-Projects
 
-Ein Überblick über verschiedene Projekte, die ich während meines Studiums und in Eigenarbeit entwickelt habe. Die Repositories spiegeln meinen aktuellen Tech-Stack sowie meine Interessen in Softwareentwicklung wider.
+Ein Überblick über verschiedene Projekte, die ich während meines Studiums und in Eigenarbeit entwickelt habe. Die Repositories spiegeln meinen aktuellen Tech-Stack sowie meine Interessen in Softwareentwicklung wieder.
 
 ---
 
